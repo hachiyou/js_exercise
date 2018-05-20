@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta charset='UTF-8'>
+	<title>Cat Clicker</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+	<div class="list_of_cats">
+		<ul class="list" style="list-style:none;">
+		</ul>
+	</div>
+	<div class="container">
+		<div class="cat_name">
+			<h2 id="cat_name"></h2>
+		</div>
+		<div class='cat_image'>
+			<img src="" alt="A picture of cat" class="cat_picture">
+		</div>
+		<div class='click_counter'>
+			<p id="cat_counter"></p>
+		</div>
+	</div>
+	<script>
+		var cats = [];
+		
+		for (var i = 0; i < 5; i++){
+			var cat = {
+				name:'Cat ' + i,
+				image:"https://c2.staticflickr.com/2/1126/625069434_db86b67df8_z.jpg",
+				counter:0
+				};
+			cats.push(cat);
+		}
+		
+		var catList = $('ul.list');
+		
+		$('#cat_name').text(cats[0].name);
+		$('.cat_picture').attr('src', cats[0].image).attr('id','cat_picture_'+0);
+		$('#cat_counter').text(cats[0].counter);
+		
+		$.each(cats, function(i){
+			var li = $('<li/>')
+				.attr('style','display:inline; padding-right:1em;')
+				.appendTo(catList);
+			$('<a/>').attr('href','#').attr('id', "cat"+i).text(cats[i].name).appendTo(li);
+		});
+		
+		$('a').click(function(e){
+			var index = parseInt($(this).attr('id').slice(-1));
+			$('#cat_name').text(cats[index].name);
+			$('.cat_picture').attr('src', cats[index].image).attr('id','cat_picture_'+index);
+			$('#cat_counter').text(cats[index].counter);
+		});
+		
+		$('img').click(function(e){
+			var index = parseInt($(this).attr('id').slice(-1));
+			console.log(cats[index].counter);
+			$('#cat_counter').text(++cats[index].counter);
+			console.log(cats[index].counter);
+		});
+		
+	</script>
+</body>
+</html>
+		
